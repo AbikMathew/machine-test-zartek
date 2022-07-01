@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zartek_test/const/app_colors.dart';
 import 'package:zartek_test/view/pages/authentication_screen/authentication_screen.dart';
 import 'package:zartek_test/view/pages/home_screen/home_screen.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         return const GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo', home: HomeScreen(),
-          // AuthenticationScreen(),
+
         );
       },
     );
