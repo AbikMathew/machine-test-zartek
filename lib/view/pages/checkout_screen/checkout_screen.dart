@@ -3,7 +3,10 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
+import 'package:zartek_test/view/pages/authentication_screen/widgets/authentication_screen_widgets.dart';
+import 'package:zartek_test/view/pages/home_screen/widgets/item_count_button.dart';
 import 'package:zartek_test/view/pages/home_screen/widgets/menu_item.dart';
+import 'package:zartek_test/view/widgets/text_widgets.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({Key? key}) : super(key: key);
@@ -21,7 +24,7 @@ class CheckoutScreen extends StatelessWidget {
           child: Container(
             //padding: EdgeInsets.all(13),
             height: 70.h,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 // border: Border.all(
                 //  // color: Colors.red, // red as border color
                 // ),
@@ -44,18 +47,22 @@ class CheckoutScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView(
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            VegLogo(),
-                          ],
-                        ),
+                    children: const [
+                      CartItem(
+                        name: 'Gobi Manchurian',
+                        calories: 250,
+                        price: 25,
+                      ),
+                      CartItem(
+                        name: 'Gobi Manchurian',
+                        calories: 250,
+                        price: 25,
                       )
                     ],
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
                       'Total Amount',
@@ -83,6 +90,62 @@ class CheckoutScreen extends StatelessWidget {
         child: const Text('Place Order'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class CartItem extends StatelessWidget {
+  const CartItem(
+      {Key? key,
+      required this.name,
+      required this.price,
+      required this.calories})
+      : super(key: key);
+
+  final String name;
+  final double price;
+  final double calories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: VegLogo(),
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              flex: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Heading(text: name),
+                  SubHeading(text: '$price'),
+                  SubHeading(text: '$calories calories'),
+                ],
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Expanded(
+              flex: 6,
+              child: ItemCountButton(
+                color: AppColors.kdarkGreen,
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Expanded(
+              flex: 4,
+              child: const SubHeading(text: 'INR: 45.00'),
+            ),
+          ],
+        ),
+        Divider(
+          thickness: 1,
+        ),
+      ],
     );
   }
 }

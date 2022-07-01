@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final HomeScreenTabs _tabs = Get.put(HomeScreenTabs());
     return Scaffold(
       appBar: AppBar(

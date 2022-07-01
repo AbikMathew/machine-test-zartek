@@ -42,7 +42,9 @@ class CustomMenuItem extends StatelessWidget {
                           'Here comes the names of differet food items that taste really wellthe names of differet food items that taste really well but hard to pronounce which are great'),
                 ),
                 SizedBox(height: 2.h),
-                const ItemCountButton()
+                const ItemCountButton(
+                  color: AppColors.kLightGreen,
+                )
               ],
             ),
           ),

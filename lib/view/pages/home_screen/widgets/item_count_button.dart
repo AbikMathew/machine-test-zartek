@@ -5,8 +5,9 @@ import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
 
 class ItemCountButton extends StatelessWidget {
-  const ItemCountButton({Key? key}) : super(key: key);
+  const ItemCountButton({Key? key, required this.color}) : super(key: key);
   final int count = 0;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +15,7 @@ class ItemCountButton extends StatelessWidget {
       width: 35.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: AppColors.kLightGreen,
+        color: color,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
