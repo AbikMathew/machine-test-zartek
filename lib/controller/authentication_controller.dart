@@ -14,7 +14,7 @@ class AuthenticationController extends GetxController {
     if (googleSignInAccount == null) {
       CustomFullscreenDialog.cancelDialog();
     } else {
-      GoogleSignInAuthentication googleSignInAuthentication =
+      GoogleSignInAuthentication  googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
       OAuthCredential oAuthCredential = GoogleAuthProvider.credential(
