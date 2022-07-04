@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
+import 'package:zartek_test/controller/authentication_controller.dart';
 import 'package:zartek_test/view/pages/home_screen/home_screen.dart';
 import 'widgets/authentication_screen_widgets.dart';
 
 class AuthenticationScreen extends StatelessWidget {
-  const AuthenticationScreen({Key? key}) : super(key: key);
+  AuthenticationScreen({Key? key}) : super(key: key);
 
-  @override 
+  AuthenticationController controller = Get.find<AuthenticationController>();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,14 +26,16 @@ class AuthenticationScreen extends StatelessWidget {
                 buttonText: 'Google',
                 leadingWidget: CustomIcon().smallGoogleLogo(),
                 onTap: () {
-                  Get.to(const HomeScreen());
+                  controller.login();
                 }),
             SizedBox(height: 1.h),
             CustomButton(
                 buttonColor: AppColors.kLightGreen,
                 buttonText: 'Phone',
                 leadingWidget: CustomIcon().phoneIcon(),
-                onTap: () {})
+                onTap: () {
+                //  Get.to(HomeScreen(),binding: );
+                })
           ],
         ),
       ),

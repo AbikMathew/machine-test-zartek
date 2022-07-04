@@ -15,10 +15,19 @@ class HomeScreenTabs extends GetxController
     Tab(
       text: 'Tab 3',
     ),
+    Tab(
+      text: 'Tab 1',
+    ),
+    Tab(
+      text: 'Tab sdfsdfsdf 2',
+    ),
+    Tab(
+      text: 'Tab 3',
+    ),
   ];
   @override
   void onInit() {
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 6, vsync: this);
     super.onInit();
   }
 

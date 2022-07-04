@@ -1,15 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
-import 'package:zartek_test/const/app_colors.dart';
-import 'package:zartek_test/view/pages/authentication_screen/authentication_screen.dart';
-import 'package:zartek_test/view/pages/checkout_screen/checkout_screen.dart';
+import 'package:zartek_test/services/bindings/authentication_screen_binding.dart';
+import 'package:zartek_test/services/bindings/splash_screen_binding.dart';
 import 'package:zartek_test/view/pages/home_screen/home_screen.dart';
+import 'package:sizer/sizer.dart';
+import 'services/bindings/home_screen_binding.dart';
+import 'view/pages/splash_screen/splash_screen.dart';
 
-void main() {
-  Future.delayed(const Duration(seconds: 2), () {
-    runApp(const MyApp());
-  });
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // HomeBinding().dependecies();
+  // Future.delayed(const Duration(seconds: 2), () {
+  //   runApp(const MyApp());
+  // });
+  SplashBinding().dependencies();
+  // AuthenticationBinding().dependencies();
+  // HomeBinding().dependencies();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +31,7 @@ class MyApp extends StatelessWidget {
         return const GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: HomeScreen(),
+          home: SplashScreen(),
           //home: CheckoutScreen(),
         );
       },

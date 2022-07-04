@@ -15,7 +15,12 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Summary'),
+        title: const Text('Order Summary',
+            style: TextStyle(color: AppColors.kLightGrey)),
+        backgroundColor: AppColors.kWhite,
+        iconTheme: const IconThemeData(
+          color: AppColors.kLightGrey,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

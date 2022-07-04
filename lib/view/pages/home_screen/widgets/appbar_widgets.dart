@@ -35,7 +35,10 @@ class CartIcon extends StatelessWidget {
         alignment: AlignmentDirectional.topEnd,
         children: [
           IconButton(
-            onPressed: () => Get.to(const CheckoutScreen()),
+            onPressed: () {},
+            // => Get.to(
+            //   const CheckoutScreen(),
+            // ),
             icon: const Icon(Icons.shopping_cart),
             color: AppColors.kLightGrey,
             iconSize: 34,
