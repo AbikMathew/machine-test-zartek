@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeScreenTabs _tabs = Get.put(HomeScreenTabs());
+    // controller.productList.length;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: AppColors.kLightGrey, size: 30),

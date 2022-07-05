@@ -1,250 +1,175 @@
-// import 'dart:convert';
+// To parse this JSON data, do
+//
+//     final product = productFromJson(jsonString);
+
 // import 'package:meta/meta.dart';
+import 'dart:convert';
 
-// class Products {
-//   String restaurantId;
-//   String restaurantName;
-//   String restaurantImage;
-//   String tableId;
-//   String tableName;
-//   String branchName;
-//   String nexturl;
-//   List<TableMenuList> tableMenuList;
+List<Product> productFromJson(String str) => List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+// List<CategoryDish> catergoryDishesHFromJson(String str) => List<CategoryDish>.from(json.decode(str).map((x) => CategoryDish.fromJson(x)));
 
-//   Products(
-//       {required this.restaurantId,
-//       required this.restaurantName,
-//       required this.restaurantImage,
-//       required this.tableId,
-//       required this.tableName,
-//       required this.branchName,
-//       required this.nexturl,
-//       required this.tableMenuList});
+// String productToJson(List<Product> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-//   Products.fromJson(Map<String, dynamic> json) {
-//     restaurantId = json['restaurant_id'];
-//     restaurantName = json['restaurant_name'];
-//     restaurantImage = json['restaurant_image'];
-//     tableId = json['table_id'];
-//     tableName = json['table_name'];
-//     branchName = json['branch_name'];
-//     nexturl = json['nexturl'];
+class Product {
+    Product({
+        required this.restaurantId,
+        required this.restaurantName,
+        required this.restaurantImage,
+        required this.tableId,
+        required this.tableName,
+        required this.branchName,
+        required this.nexturl,
+        required this.tableMenuList,
+    });
 
-//     if (json['table_menu_list'] != null) {
-//       tableMenuList =  <TableMenuList>[];
-//       json['table_menu_list'].forEach((v) {
-//         tableMenuList.add( TableMenuList.fromJson(v));
-//       });
-//     }
-//   }
+    final String restaurantId;
+    final String restaurantName;
+    final String restaurantImage;
+    final String tableId;
+    final String tableName;
+    final String branchName;
+    final String nexturl;
+    final List<TableMenuList>? tableMenuList;
 
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['restaurant_id'] = this.restaurantId;
-//     data['restaurant_name'] = this.restaurantName;
-//     data['restaurant_image'] = this.restaurantImage;
-//     data['table_id'] = this.tableId;
-//     data['table_name'] = this.tableName;
-//     data['branch_name'] = this.branchName;
-//     data['nexturl'] = this.nexturl;
-//     if (this.tableMenuList != null) {
-//       data['table_menu_list'] =
-//           this.tableMenuList.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
+    factory Product.fromJson(Map<String, dynamic> json) => Product(
+        restaurantId: json["restaurant_id"] == null ? null : json["restaurant_id"],
+        restaurantName: json["restaurant_name"] == null ? null : json["restaurant_name"],
+        restaurantImage: json["restaurant_image"] == null ? null : json["restaurant_image"],
+        tableId: json["table_id"] == null ? null : json["table_id"],
+        tableName: json["table_name"] == null ? null : json["table_name"],
+        branchName: json["branch_name"] == null ? null : json["branch_name"],
+        nexturl: json["nexturl"] == null ? null : json["nexturl"],
+        tableMenuList: json["table_menu_list"] == null ? null : List<TableMenuList>.from(json["table_menu_list"].map((x) => TableMenuList.fromJson(x))),
+    );
 
-// class TableMenuList { 
-//   String menuCategory;
-//   String menuCategoryId;
-//   String menuCategoryImage;
-//   String nexturl;
-//   List<CategoryDishes> categoryDishes;
+    // Map<String, dynamic> toJson() => {
+    //     "restaurant_id": restaurantId == null ? null : restaurantId,
+    //     "restaurant_name": restaurantName == null ? null : restaurantName,
+    //     "restaurant_image": restaurantImage == null ? null : restaurantImage,
+    //     "table_id": tableId == null ? null : tableId,
+    //     "table_name": tableName == null ? null : tableName,
+    //     "branch_name": branchName == null ? null : branchName,
+    //     "nexturl": nexturl == null ? null : nexturl,
+    //     "table_menu_list": tableMenuList == null ? null : List<dynamic>.from(tableMenuList!.map((x) => x.toJson())),
+    // };
+}
 
-//   TableMenuList(
-//       {required this.menuCategory,
-//       required this.menuCategoryId,
-//       required this.menuCategoryImage,
-//       required this.nexturl,
-//       required this.categoryDishes});
+class TableMenuList {
+    TableMenuList({
+        required this.menuCategory,
+        required this.menuCategoryId,
+        required this.menuCategoryImage,
+        required this.nexturl,
+        required this.categoryDishes,
+    });
 
-//   TableMenuList.fromJson(Map<String, dynamic> json) {
-//     menuCategory = json['menu_category'];
-//     menuCategoryId = json['menu_category_id'];
-//     menuCategoryImage = json['menu_category_image'];
-//     nexturl = json['nexturl'];
-//     if (json['category_dishes'] != null) {
-//       categoryDishes = <CategoryDishes>[];
-//       json['category_dishes'].forEach((v) {
-//         categoryDishes.add(new CategoryDishes.fromJson(v));
-//       });
-//     }
-//   }
+    final String menuCategory;
+    final String menuCategoryId;
+    final String menuCategoryImage;
+    final String nexturl;
+    final List<CategoryDish>? categoryDishes;
 
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['menu_category'] = this.menuCategory;
-//     data['menu_category_id'] = this.menuCategoryId;
-//     data['menu_category_image'] = this.menuCategoryImage;
-//     data['nexturl'] = this.nexturl;
-//     if (this.categoryDishes != null) {
-//       data['category_dishes'] =
-//           this.categoryDishes.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
+    factory TableMenuList.fromJson(Map<String, dynamic> json) => TableMenuList(
+        menuCategory: json["menu_category"] == null ? null : json["menu_category"],
+        menuCategoryId: json["menu_category_id"] == null ? null : json["menu_category_id"],
+        menuCategoryImage: json["menu_category_image"] == null ? null : json["menu_category_image"],
+        nexturl: json["nexturl"] == null ? null : json["nexturl"],
+        categoryDishes: json["category_dishes"] == null ? null : List<CategoryDish>.from(json["category_dishes"].map((x) => CategoryDish.fromJson(x))),
+    );
 
-// class CategoryDishes {
-//   String dishId;
-//   String dishName;
-//   double dishPrice;
-//   String dishImage;
-//   String dishCurrency;
-//   int dishCalories;
-//   String dishDescription;
-//   bool dishAvailability;
-//   int dishType;
-//   String nexturl;
-//   List<AddonCat> addonCat;
+    // Map<String, dynamic> toJson() => {
+    //     "menu_category": menuCategory == null ? null : menuCategory,
+    //     "menu_category_id": menuCategoryId == null ? null : menuCategoryId,
+    //     "menu_category_image": menuCategoryImage == null ? null : menuCategoryImage,
+    //     "nexturl": nexturl == null ? null : nexturl,
+    //     "category_dishes": categoryDishes == null ? null : List<dynamic>.from(categoryDishes!.map((x) => x.toJson())),
+    // };
+}
 
-//   CategoryDishes(
-//       {required this.dishId,
-//       required this.dishName,
-//       required this.dishPrice,
-//       required this.dishImage,
-//       required this.dishCurrency,
-//       required this.dishCalories,
-//       required this.dishDescription,
-//       required this.dishAvailability,
-//       required this.dishType,
-//       required this.nexturl,
-//       required this.addonCat});
+class AddonCat {   
+    AddonCat({
+        required this.addonCategory,
+        required this.addonCategoryId,
+        required this.addonSelection,
+         this.nexturl,
+        required this.addons,
+    });
 
-//   CategoryDishes.fromJson(Map<String, dynamic> json) {
-//     dishId = json['dish_id'];
-//     dishName = json['dish_name'];
-//     dishPrice = json['dish_price'];
-//     dishImage = json['dish_image'];
-//     dishCurrency = json['dish_currency'];
-//     dishCalories = json['dish_calories'];
-//     dishDescription = json['dish_description'];
-//     dishAvailability = json['dish_Availability'];
-//     dishType = json['dish_Type'];
-//     nexturl = json['nexturl'];
-//     if (json['addonCat'] != null) {
-//       addonCat = <AddonCat>[];
-//       json['addonCat'].forEach((v) {
-//         addonCat.add(new AddonCat.fromJson(v));
-//       });
-//     }
-//   }
+    final String addonCategory;
+    final String addonCategoryId;
+    final int addonSelection;
+    final String? nexturl;
+    final List<CategoryDish> addons;
 
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['dish_id'] = this.dishId;
-//     data['dish_name'] = this.dishName;
-//     data['dish_price'] = this.dishPrice;
-//     data['dish_image'] = this.dishImage;
-//     data['dish_currency'] = this.dishCurrency;
-//     data['dish_calories'] = this.dishCalories;
-//     data['dish_description'] = this.dishDescription;
-//     data['dish_Availability'] = this.dishAvailability;
-//     data['dish_Type'] = this.dishType;
-//     data['nexturl'] = this.nexturl;
-//     if (this.addonCat != null) {
-//       data['addonCat'] = this.addonCat.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
+    factory AddonCat.fromJson(Map<String, dynamic> json) => AddonCat(
+        addonCategory: json["addon_category"] == null ? null : json["addon_category"],
+        addonCategoryId: json["addon_category_id"] == null ? null : json["addon_category_id"],
+        addonSelection:  json["addon_selection"],
+        nexturl: json["nexturl"] == null ? null : json["nexturl"],
+        addons: json["addons"] == [] ? [] : List<CategoryDish>.from(json["addons"].map((x) => CategoryDish.fromJson(x))),
+    );
 
-// class AddonCat {
-//   String addonCategory;
-//   String addonCategoryId;
-//   int addonSelection;
-//   String nexturl;
-//   List<Addons> addons;
+    // Map<String, dynamic> toJson() => {
+    //     "addon_category": addonCategory == null ? null : addonCategory,
+    //     "addon_category_id": addonCategoryId == null ? null : addonCategoryId,
+    //     "addon_selection": addonSelection == null ? null : addonSelection,
+    //     "nexturl": nexturl == null ? null : nexturl,
+    //     "addons": addons == null ? null : List<dynamic>.from(addons!.map((x) => x.toJson())),
+    // };
+}
 
-//   AddonCat(
-//       {required this.addonCategory,
-//       required this.addonCategoryId,
-//       required this.addonSelection,
-//       required this.nexturl,
-//       required this.addons});
+class CategoryDish {
+    CategoryDish({
+        required this.dishId,
+        required this.dishName,
+        required this.dishPrice,
+        required this.dishImage,
+        required this.dishCurrency,
+        required this.dishCalories,
+        required this.dishDescription,
+        required this.dishAvailability,
+        required this.dishType,
+         this.nexturl,
+        required this.addonCat,
+    });
 
-//   AddonCat.fromJson(Map<String, dynamic> json) {
-//     addonCategory = json['addon_category'];
-//     addonCategoryId = json['addon_category_id'];
-//     addonSelection = json['addon_selection'];
-//     nexturl = json['nexturl'];
-//     if (json['addons'] != null) {
-//       addons = <Addons>[];
-//       json['addons'].forEach((v) {
-//         addons.add(Addons.fromJson(v));
-//       });
-//     }
-//   }
+    final String dishId;
+    final String dishName;
+    final double dishPrice;
+    final String dishImage;
+    final String dishCurrency;
+    final double dishCalories;
+    final String dishDescription;
+    final bool dishAvailability;
+    final int dishType;
+    final String? nexturl;
+    final List<AddonCat>? addonCat;
 
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['addon_category'] = this.addonCategory;
-//     data['addon_category_id'] = this.addonCategoryId;
-//     data['addon_selection'] = this.addonSelection;
-//     data['nexturl'] = this.nexturl;
-//     if (this.addons != null) {
-//       data['addons'] = this.addons.map((v) => v.toJson()).toList();
-//     }
-//     return data;
-//   }
-// }
+    factory CategoryDish.fromJson(Map<String, dynamic> json) => CategoryDish(
+        dishId: json["dish_id"],
+        dishName: json["dish_name"] == null ? null : json["dish_name"],
+        dishPrice: json["dish_price"] == null ? null : json["dish_price"].toDouble(),
+        dishImage: json["dish_image"] == null ? null : json["dish_image"],
+        dishCurrency: json["dish_currency"] == null ? null : json["dish_currency"],
+        dishCalories: json["dish_calories"],
+        dishDescription: json["dish_description"] == null ? null : json["dish_description"],
+        dishAvailability: json["dish_Availability"] == null ? null : json["dish_Availability"],
+        dishType: json["dish_Type"],
+        nexturl: json["nexturl"] == null ? null : json["nexturl"],
+        addonCat: json["addonCat"] == null ? [] : List<AddonCat>.from(json["addonCat"].map((x) => AddonCat.fromJson(x))),
+    );
 
-// class Addons {
-//   String dishId;
-//   String dishName;
-//   int dishPrice;
-//   String dishImage;
-//   String dishCurrency;
-//   int dishCalories;
-//   String dishDescription;
-//   bool dishAvailability;
-//   int dishType;
-
-//   Addons(
-//       {required this.dishId,
-//       required this.dishName,
-//       required this.dishPrice,
-//       required this.dishImage,
-//       required this.dishCurrency,
-//       required this.dishCalories,
-//       required this.dishDescription,
-//       required this.dishAvailability,
-//       required this.dishType});
-
-//   Addons.fromJson(Map<String, dynamic> json) {
-//     dishId = json['dish_id'];
-//     dishName = json['dish_name'];
-//     dishPrice = json['dish_price'];
-//     dishImage = json['dish_image'];
-//     dishCurrency = json['dish_currency'];
-//     dishCalories = json['dish_calories'];
-//     dishDescription = json['dish_description'];
-//     dishAvailability = json['dish_Availability'];
-//     dishType = json['dish_Type'];
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data =  Map<String, dynamic>();
-//     data['dish_id'] = this.dishId;
-//     data['dish_name'] = this.dishName;
-//     data['dish_price'] = this.dishPrice;
-//     data['dish_image'] = this.dishImage;
-//     data['dish_currency'] = this.dishCurrency;
-//     data['dish_calories'] = this.dishCalories;
-//     data['dish_description'] = this.dishDescription;
-//     data['dish_Availability'] = this.dishAvailability;
-//     data['dish_Type'] = this.dishType;
-//     return data;
-//   }
-// }
+    // Map<String, dynamic> toJson() => {
+    //     "dish_id": dishId == null ? null : dishId,
+    //     "dish_name": dishName == null ? null : dishName,
+    //     "dish_price": dishPrice == null ? null : dishPrice,
+    //     "dish_image": dishImage == null ? null : dishImage,
+    //     "dish_currency": dishCurrency == null ? null : dishCurrency,
+    //     "dish_calories": dishCalories == null ? null : dishCalories,
+    //     "dish_description": dishDescription == null ? null : dishDescription,
+    //     "dish_Availability": dishAvailability == null ? null : dishAvailability,
+    //     "dish_Type": dishType == null ? null : dishType,
+    //     "nexturl": nexturl == null ? null : nexturl,
+    //     "addonCat": addonCat == null ? null : List<dynamic>.from(addonCat.map((x) => x.toJson())),
+    // };
+}
