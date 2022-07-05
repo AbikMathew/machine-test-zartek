@@ -1,19 +1,35 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zartek_test/controller/splash_controller.dart';
+import 'package:zartek_test/model/fail.dart';
 import 'package:zartek_test/services/api_services/api_services.dart';
 
 class HomeController extends GetxController {
   SplashController splashController = Get.find<SplashController>();
-//  HomeController homeController = Get.find<HomeController>();
 
+  var productList = <Product>[].obs;
   late User user;
-  // List<Products> productList = <Products>[].obs;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    productList.value = await getProduct();
     user = Get.arguments;
-    ApiServices().getProduct();
+  }
+
+  Future<List<Product>> getProduct() async {
+    var result = await ApiServices.getProduct();
+
+    log(result.toString());
+
+    if (result != null) {
+      productList.assignAll(result);
+      return productList.value;
+    }
+    return productList;
   }
 
   void logout() async {

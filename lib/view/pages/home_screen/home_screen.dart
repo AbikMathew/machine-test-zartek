@@ -1,54 +1,71 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zartek_test/const/app_colors.dart';
 import 'package:zartek_test/controller/home_controller.dart';
 import 'package:zartek_test/view/pages/home_screen/widgets/menu_item.dart';
 import 'package:zartek_test/controller/tab_controller/tab_controller.dart';
+import 'package:zartek_test/view/widgets/text_widgets.dart';
+import '../../../model/fail.dart';
 import 'widgets/appbar_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
-  final HomeController controller = Get.find<HomeController>();
+  final HomeController homeController = Get.find<HomeController>();
+  final HomeScreenTabs controller = Get.put(HomeScreenTabs());
 
   @override
   Widget build(BuildContext context) {
-    final HomeScreenTabs _tabs = Get.put(HomeScreenTabs());
-    // controller.productList.length;
+    final bool isEmpty = controller.tabs.isEmpty;
+    // log(homeController.productList[0].tableMenuList![0].categoryDishes![0].dishName);
     return Scaffold(
       appBar: AppBar(
+        // titleTextStyle: TextStyle(color: Colors.black),
+        // title: Obx(()=>SubHeading(text:homeController.productList[0].tableMenuList![0].categoryDishes![0].dishName)),
         iconTheme: const IconThemeData(color: AppColors.kLightGrey, size: 30),
         actions: const [
           CartIcon(),
         ],
         backgroundColor: AppColors.kWhite,
-        bottom: TabBar(
-          isScrollable: true,
-          labelColor: AppColors.kRed,
-          unselectedLabelColor: AppColors.kLightGrey,
-          indicatorColor: AppColors.kRed,
-          controller: _tabs.controller,
-          tabs: _tabs.tabs,
+        bottom: PreferredSize(
+          preferredSize: Size(double.infinity, 50),
+          child: 
+          // Obx(() => 
+          TabBar(
+                isScrollable: true,
+                labelColor: AppColors.kRed,
+                unselectedLabelColor: AppColors.kLightGrey,
+                indicatorColor: AppColors.kRed,
+                controller: controller.controller,
+                tabs: isEmpty ? controller.waitingTabs : controller.tabs,
+              ),
+              // ),
         ),
       ),
-      body: TabBarView(controller: _tabs.controller, children: [
-        ListView.separated(
-            separatorBuilder: ((context, index) => const Divider(
-                  thickness: 1,
-                )),
-            itemCount: 13,
-            itemBuilder: (context, index) {
-              return const CustomMenuItem();
-            }),
-        const Center(child: Text('Tab 2')),
-        const Center(child: Text('Tab 3 ')),
-        const Center(child: Text('Tab 3')),
-        const Center(child: Text('Tab 3')),
-        const Center(child: Text('Tab 3')),
-      ]),
+      body: FutureBuilder<List<Product>?>(
+          future: homeController.getProduct(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                return TabBarView(
+                  controller: controller.controller,
+                  children: List<Widget>.generate(
+                    homeController.productList[0].tableMenuList!.length,
+                    (index) => CustomMenuItem(catDishIndex: index),
+                  ),
+                );
+              }
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
       drawer: NavigationDrawer(),
     );
   }
+  // );
+  //  ),
+  //);
 }
 
 class NavigationDrawer extends StatelessWidget {
@@ -73,7 +90,7 @@ class NavigationDrawer extends StatelessWidget {
         ),
         child: Column(
           children: [
-             CircleAvatar(
+            CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(controller.user.photoURL!),
             ),

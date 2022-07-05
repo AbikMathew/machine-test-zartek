@@ -1,33 +1,39 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zartek_test/controller/home_controller.dart';
 
 class HomeScreenTabs extends GetxController
     with GetSingleTickerProviderStateMixin {
   late TabController controller;
 
-  final List<Tab> tabs = const <Tab>[
-    Tab(
-      text: 'Tab 1',
+  static HomeController homeController = Get.find<HomeController>();
+
+  // checkEmpty(){
+  //   log(homeController.productList[0].tableMenuList!.length.toString());
+  // }
+
+  final List<Tab> tabs = List<Tab>.generate(
+    homeController.productList[0].tableMenuList!.length,
+    (index) => Tab(
+      text: homeController.productList[0].tableMenuList![index].menuCategory,
     ),
-    Tab(
-      text: 'Tab 2',
-    ),
-    Tab(
-      text: 'Tab 3',
-    ),
-    Tab(
-      text: 'Tab 1',
-    ),
-    Tab(
-      text: 'Tab sdfsdfsdf 2',
-    ),
-    Tab(
-      text: 'Tab 3',
-    ),
-  ];
+  ).obs;
+
+  final List<Tab> waitingTabs = List<Tab>.generate(
+      6,
+      (index) => const Tab(
+            text: 'Loading...',
+          )).obs;
+
   @override
   void onInit() {
-    controller = TabController(length: 6, vsync: this);
+    controller = TabController(
+        length: homeController.productList[0].tableMenuList!.isEmpty
+            ? 0
+            : homeController.productList[0].tableMenuList!.length,
+        vsync: this);
     super.onInit();
   }
 
@@ -37,3 +43,8 @@ class HomeScreenTabs extends GetxController
     super.onClose();
   }
 }
+
+
+  // void futile() {
+  //   log(homeController.productList.length.toString());
+  // }
