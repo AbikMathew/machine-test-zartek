@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
@@ -18,13 +17,15 @@ class CustomMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var categoryDishes =
+        controller.product![0].tableMenuList![catDishIndex].categoryDishes!;
+
     return ListView.separated(
       cacheExtent: 10000,
       separatorBuilder: ((context, index) => const Divider(
             thickness: 1,
           )),
-      itemCount: controller
-          .product![0].tableMenuList![catDishIndex].categoryDishes!.length,
+      itemCount: categoryDishes.length,
       itemBuilder: (context, index) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
@@ -40,33 +41,23 @@ class CustomMenuItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Heading(
-                        text: controller
-                            .product![0]
-                            .tableMenuList![catDishIndex]
-                            .categoryDishes![index]
-                            .dishName),
+                    Heading(text: categoryDishes[index].dishName),
                     SizedBox(height: 0.5.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SubHeading(
-                            text:
-                                'INR ${controller.product![0].tableMenuList![catDishIndex].categoryDishes![index].dishPrice}'),
+                            text: 'INR ${categoryDishes[index].dishPrice}'),
                         SubHeading(
                             text:
-                                '${controller.product![0].tableMenuList![catDishIndex].categoryDishes![index].dishCalories} calories'),
+                                '${categoryDishes[index].dishCalories} calories'),
                       ],
                     ),
                     SizedBox(height: 1.h),
                     SizedBox(
                       width: 70.w,
                       child: DescriptionText(
-                          text: controller
-                              .product![0]
-                              .tableMenuList![catDishIndex]
-                              .categoryDishes![index]
-                              .dishDescription),
+                          text: categoryDishes[index].dishDescription),
                     ),
                     SizedBox(height: 2.h),
                     const ItemCountButton(
@@ -93,12 +84,13 @@ class CustomMenuItem extends StatelessWidget {
         .categoryDishes![index].addonCat;
 
     if (addOnCat!.isEmpty) {
-      return SizedBox();
-    } else
+      return const SizedBox();
+    } else {
       return const Text(
         'Customization Available',
         style: TextStyle(color: AppColors.kRed),
       );
+    }
   }
 }
 
