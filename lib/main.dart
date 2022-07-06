@@ -16,6 +16,7 @@ Future main() async {
   //   runApp(const MyApp());
   // });
   SplashBinding().dependencies();
+  // Get.lazyPut<HomeScreenTabs>(() => HomeScreenTabs());
   // AuthenticationBinding().dependencies();
   // HomeBinding().dependencies();
   runApp(const MyApp());
