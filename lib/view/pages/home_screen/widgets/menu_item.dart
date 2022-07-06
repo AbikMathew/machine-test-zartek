@@ -1,8 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
 import '../../../../controller/home_controller.dart';
-import '../../../../model/fail.dart';
 import '../../../widgets/text_widgets.dart';
 import 'item_count_button.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class CustomMenuItem extends StatelessWidget {
       itemBuilder: (context, index) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-          height: 23.h,
+          height: 24.h,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,7 +56,6 @@ class CustomMenuItem extends StatelessWidget {
                         SubHeading(
                             text:
                                 '${controller.product![0].tableMenuList![catDishIndex].categoryDishes![index].dishCalories} calories'),
-                        // SubHeading(text: '15 Calories'),
                       ],
                     ),
                     SizedBox(height: 1.h),
@@ -68,14 +67,13 @@ class CustomMenuItem extends StatelessWidget {
                               .tableMenuList![catDishIndex]
                               .categoryDishes![index]
                               .dishDescription),
-                      // const DescriptionText(
-                      //     text:
-                      //         'Here comes the names of differet food items that taste really wellthe names of differet food items that taste really well but hard to pronounce which are great'),
                     ),
                     SizedBox(height: 2.h),
                     const ItemCountButton(
                       color: AppColors.kLightGreen,
-                    )
+                    ),
+                    SizedBox(height: 1.h),
+                    customizationAvailable(index)
                   ],
                 ),
               ),
@@ -88,6 +86,19 @@ class CustomMenuItem extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget customizationAvailable(int index) {
+    final addOnCat = controller.product![0].tableMenuList![catDishIndex]
+        .categoryDishes![index].addonCat;
+
+    if (addOnCat!.isEmpty) {
+      return SizedBox();
+    } else
+      return const Text(
+        'Customization Available',
+        style: TextStyle(color: AppColors.kRed),
+      );
   }
 }
 
