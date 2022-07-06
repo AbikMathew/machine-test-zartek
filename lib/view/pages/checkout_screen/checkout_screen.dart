@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
-import 'package:zartek_test/view/pages/authentication_screen/widgets/authentication_screen_widgets.dart';
 import 'package:zartek_test/view/pages/home_screen/widgets/item_count_button.dart';
 import 'package:zartek_test/view/pages/home_screen/widgets/menu_item.dart';
 import 'package:zartek_test/view/widgets/text_widgets.dart';
@@ -27,13 +24,8 @@ class CheckoutScreen extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(),
           child: Container(
-            //padding: EdgeInsets.all(13),
             height: 70.h,
-            decoration: const BoxDecoration(
-                // border: Border.all(
-                //  // color: Colors.red, // red as border color
-                // ),
-                ),
+            decoration: const BoxDecoration(),
             child: Column(
               children: [
                 Container(
@@ -143,11 +135,11 @@ class CartItem extends StatelessWidget {
             const SizedBox(width: 6),
             const Expanded(
               flex: 4,
-              child: const SubHeading(text: 'INR: 45.00'),
+              child: SubHeading(text: 'INR: 45.00'),
             ),
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 1,
         ),
       ],

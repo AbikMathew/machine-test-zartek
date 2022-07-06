@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:zartek_test/const/app_colors.dart';
 import 'package:zartek_test/controller/authentication_controller.dart';
-import 'package:zartek_test/view/pages/home_screen/home_screen.dart';
 import 'widgets/authentication_screen_widgets.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   AuthenticationScreen({Key? key}) : super(key: key);
 
-  AuthenticationController controller = Get.find<AuthenticationController>();
+  final AuthenticationController controller = Get.find<AuthenticationController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

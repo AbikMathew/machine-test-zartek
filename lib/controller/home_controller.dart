@@ -4,11 +4,9 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zartek_test/controller/splash_controller.dart';
 import 'package:zartek_test/model/fail.dart';
-import 'package:zartek_test/services/api_services/api_services.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -48,7 +46,8 @@ class HomeController extends GetxController
 
         final products = productFromJson(json.encode(response.data));
         product = products;
-        // return product;
+        return products;
+
       }
     } catch (e) {
       log('Error occured: $e');
